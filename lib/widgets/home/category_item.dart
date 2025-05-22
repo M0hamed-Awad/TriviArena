@@ -36,9 +36,16 @@ class CategoryItem extends StatelessWidget {
 
   Positioned _buildCategoryIconWidget({required String categoryIconPath}) {
     return Positioned(
-      bottom: 45,
-      right: (140 / 2) - 40,
-      child: Image(image: AssetImage(categoryIconPath), height: 80, width: 80),
+      top: -60,
+      left: 0,
+      right: 0,
+      child: Center(
+        child: Image(
+          image: AssetImage(categoryIconPath),
+          height: 90,
+          width: 90,
+        ),
+      ),
     );
   }
 
