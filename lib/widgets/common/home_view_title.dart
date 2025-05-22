@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:trivi_arena/constants.dart';
 
 class HomeViewTitle extends StatelessWidget {
   const HomeViewTitle({super.key});
@@ -15,13 +14,16 @@ class HomeViewTitle extends StatelessWidget {
         RichText(
           text: TextSpan(
             text: "Welcome to ",
-            style: TextStyle(fontSize: 18, color: kTextColor),
+            style: TextStyle(
+              fontSize: 18,
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
             children: [
               TextSpan(
                 text: "TriviArena",
                 style: TextStyle(
                   fontSize: 20,
-                  color: kPrimaryColor,
+                  color: Theme.of(context).colorScheme.primary,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -33,7 +35,7 @@ class HomeViewTitle extends StatelessWidget {
           style: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
-            color: kTextColor,
+            color: Theme.of(context).colorScheme.onSurface,
           ),
         ),
       ],

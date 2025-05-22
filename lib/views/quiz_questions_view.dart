@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:trivi_arena/constants.dart';
 import 'package:trivi_arena/cubits/answer_cubit/answer_cubit.dart';
 import 'package:trivi_arena/cubits/question_cubit/question_cubit.dart';
 import 'package:trivi_arena/cubits/score_cubit/score_cubit.dart';
@@ -21,7 +20,7 @@ class QuizQuestionsView extends StatelessWidget {
         BlocProvider<ScoreCubit>(create: (context) => ScoreCubit()),
       ],
       child: Scaffold(
-        backgroundColor: kBackgroundColor,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
           child: QuizQuestionsViewBody(quizModel: quizModel),

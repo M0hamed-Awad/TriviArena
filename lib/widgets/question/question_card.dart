@@ -7,6 +7,7 @@ class QuestionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
       height: 200,
       padding: const EdgeInsets.only(
@@ -16,18 +17,21 @@ class QuestionCard extends StatelessWidget {
         bottom: 32.0,
       ),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color:
+            isDark
+                ? kQuestionBackgroundColorDark
+                : kQuestionBackgroundColorLight,
         borderRadius: BorderRadius.circular(16),
       ),
-      child: SingleChildScrollView(
-        child: Center(
+      child: Center(
+        child: SingleChildScrollView(
           child: Text(
             questionText,
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
-              color: kTextColor,
+              color: Theme.of(context).colorScheme.onSurface,
             ),
           ),
         ),

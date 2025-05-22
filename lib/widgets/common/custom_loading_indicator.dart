@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:trivi_arena/constants.dart';
 
 class CustomLoadingIndicator extends StatelessWidget {
   const CustomLoadingIndicator({super.key});
@@ -8,7 +7,7 @@ class CustomLoadingIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return CircularProgressIndicator(
       backgroundColor: Colors.transparent,
-      color: kPrimaryColor,
+      color: Theme.of(context).primaryColor,
       strokeWidth: 8,
       strokeCap: StrokeCap.round,
     );

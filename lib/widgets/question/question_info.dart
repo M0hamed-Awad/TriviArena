@@ -40,7 +40,7 @@ class QuestionInfo extends StatelessWidget {
     BlocProvider.of<AnswerCubit>(context).loadAnswers();
 
     return Padding(
-      padding: const EdgeInsets.only(top: 24.0, bottom: 12),
+      padding: const EdgeInsets.only(top: 24.0, bottom: 16),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         spacing: 8,
@@ -60,7 +60,7 @@ class QuestionInfo extends StatelessWidget {
   }) {
     return <Widget>[
       const SizedBox(height: 16),
-      _buildQuizTitle(quizTitle: quizModel.quizTitle),
+      _buildQuizTitle(quizTitle: quizModel.quizTitle, context: context),
       const SizedBox(height: 4),
       QuizProgressBar(
         currentQuestionNumber: currentQuestionNumber,
@@ -91,22 +91,26 @@ class QuestionInfo extends StatelessWidget {
       _buildQuizInfoRow(
         currentQuestionNumber: currentQuestionNumber,
         quiz: quizModel,
+        context: context,
       ),
 
       const SizedBox(height: 20),
-      
-      Expanded(child: QuestionChoicesColumn(questionModel: question)),
+
+      QuestionChoicesColumn(questionModel: question),
       _buildQuizButton(correctAnswer: question.correctAnswer),
     ];
   }
 
-  Widget _buildQuizTitle({required String quizTitle}) {
+  Widget _buildQuizTitle({
+    required String quizTitle,
+    required BuildContext context,
+  }) {
     return Text(
       quizTitle,
       style: TextStyle(
         fontSize: 24,
         fontWeight: FontWeight.bold,
-        color: kTextColor,
+        color: Theme.of(context).colorScheme.onSurface,
       ),
     );
   }
@@ -114,56 +118,64 @@ class QuestionInfo extends StatelessWidget {
   Widget _buildQuizInfoRow({
     required int currentQuestionNumber,
     required QuizModel quiz,
+    required BuildContext context,
   }) {
     int quizNumberOfQuestions = quiz.numberOfQuestions;
     String quizDifficulty = quiz.questionsDifficulty.name;
+
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          RichText(
-            text: TextSpan(
-              text: "Question",
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: const Color.fromARGB(255, 118, 118, 118),
-              ),
-              children: [
-                TextSpan(
-                  text: " $currentQuestionNumber of $quizNumberOfQuestions",
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: RichText(
+                text: TextSpan(
+                  text: "Question",
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: kTextColor,
+                    color: kGreyColor,
                   ),
+                  children: [
+                    TextSpan(
+                      text: " $currentQuestionNumber of $quizNumberOfQuestions",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
-          const SizedBox(width: 24),
-          RichText(
-            text: TextSpan(
-              text: "Difficulty:",
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: const Color.fromARGB(255, 118, 118, 118),
               ),
-              children: [
-                TextSpan(
-                  text: " $quizDifficulty",
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: kTextColor,
-                  ),
-                ),
-              ],
             ),
-          ),
-        ],
+
+            RichText(
+              text: TextSpan(
+                text: "Difficulty:",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: kGreyColor,
+                ),
+                children: [
+                  TextSpan(
+                    text: " $quizDifficulty",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 36),
+          ],
+        ),
       ),
     );
   }

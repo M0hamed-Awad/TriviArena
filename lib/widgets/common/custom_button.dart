@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:trivi_arena/constants.dart';
 
 class CustomButton extends StatelessWidget {
   final void Function() onTap;
@@ -12,7 +11,7 @@ class CustomButton extends StatelessWidget {
     required this.onTap,
     required this.backgroundColor,
     required this.buttonText,
-    this.buttonTextColor = kTextColor,
+    this.buttonTextColor = Colors.black,
   });
 
   @override

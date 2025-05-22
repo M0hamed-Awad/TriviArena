@@ -19,21 +19,27 @@ class QuizInfoViewBody extends StatelessWidget {
       categoryId: quizModel.categoryId,
     );
 
+    final Color categoryColor = CategoriesHelper.getCategoryColor(
+      context: context,
+      categoryId: category.id,
+    );
+
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
-      color: category.color,
+      color: categoryColor,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           _buildQuizImage(imagePath: category.iconPath),
           Expanded(
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
-              decoration: _buildMainContainerBoxDecoration(),
+              decoration: _buildMainContainerBoxDecoration(context),
               child: _buildQuizInfoBody(
                 context,
                 quizModel: quizModel,
-                categoryColor: category.color,
+                categoryColor: categoryColor,
               ),
             ),
           ),
@@ -51,9 +57,11 @@ class QuizInfoViewBody extends StatelessWidget {
     );
   }
 
-  BoxDecoration _buildMainContainerBoxDecoration() {
+  BoxDecoration _buildMainContainerBoxDecoration(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return BoxDecoration(
-      color: Colors.white,
+      color:
+          isDark ? kQuizInfoBackgroundColorDark : kQuizInfoBackgroundColorLight,
       borderRadius: BorderRadius.only(
         topLeft: Radius.circular(32),
         topRight: Radius.circular(32),
@@ -66,14 +74,16 @@ class QuizInfoViewBody extends StatelessWidget {
     required QuizModel quizModel,
     required Color categoryColor,
   }) {
-    return SingleChildScrollView(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        spacing: 8,
-        children: _getQuizInfoBodyWidgetsList(
-          context,
-          quizModel: quizModel,
-          categoryColor: categoryColor,
+    return Center(
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          spacing: 8,
+          children: _getQuizInfoBodyWidgetsList(
+            context,
+            quizModel: quizModel,
+            categoryColor: categoryColor,
+          ),
         ),
       ),
     );
@@ -88,7 +98,7 @@ class QuizInfoViewBody extends StatelessWidget {
       const Text(
         'Are You Ready?',
         textAlign: TextAlign.center,
-        style: TextStyle(fontSize: 14, color: Colors.grey),
+        style: TextStyle(fontSize: 14, color: kGreyColor),
       ),
       Text(
         quizModel.quizTitle,
@@ -98,7 +108,7 @@ class QuizInfoViewBody extends StatelessWidget {
       const SizedBox(height: 4),
       _buildQuizDescriptionTitle(),
       _buildQuizDescriptionText(quizDescription: quizModel.quizDescription),
-      const SizedBox(height: 16),
+      const SizedBox(height: 24),
       _buildStartQuizButton(
         context,
         quizModel: quizModel,
@@ -113,11 +123,7 @@ class QuizInfoViewBody extends StatelessWidget {
       child: const Text(
         'Description',
         textAlign: TextAlign.center,
-        style: TextStyle(
-          fontSize: 20,
-          color: kTextColor,
-          fontWeight: FontWeight.bold,
-        ),
+        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
       ),
     );
   }
@@ -128,7 +134,7 @@ class QuizInfoViewBody extends StatelessWidget {
       child: Text(
         quizDescription,
         textAlign: TextAlign.start,
-        style: TextStyle(fontSize: 16, color: kTextColor),
+        style: TextStyle(fontSize: 16),
       ),
     );
   }

@@ -22,7 +22,7 @@ class QuizStatsRow extends StatelessWidget {
       spacing: 8,
       children: [
         QuizQuestionsResultsContainer(
-          backgroundColor: kDefaultColor,
+          backgroundColor: kDefaultLightColor,
           numberOfQuestions: numberOfQuestions,
           text: "Questions",
         ),

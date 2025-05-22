@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:trivi_arena/constants.dart';
 import 'package:trivi_arena/cubits/answer_cubit/answer_cubit.dart';
 import 'package:trivi_arena/cubits/question_cubit/question_cubit.dart';
 import 'package:trivi_arena/cubits/score_cubit/score_cubit.dart';
@@ -62,10 +61,11 @@ class QuizResultsCard extends StatelessWidget {
     required int numberOfCorrectQuestions,
     required int numberOfWrongQuestions,
   }) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Center(
       child: Container(
         padding: EdgeInsets.only(bottom: 16, top: 128, left: 8, right: 8),
-        decoration: _buildMainContainerDecoration(),
+        decoration: _buildMainContainerDecoration(isDark: isDark),
         child: _buildFinishQuizCardBody(
           context,
           numberOfQuestions: numberOfQuestions,
@@ -91,7 +91,7 @@ class QuizResultsCard extends StatelessWidget {
         Text(
           "Your Score:",
           style: TextStyle(
-            color: kTextColor,
+            color: Theme.of(context).colorScheme.onSurface,
             fontSize: 24,
             fontWeight: FontWeight.bold,
           ),
@@ -99,7 +99,7 @@ class QuizResultsCard extends StatelessWidget {
         Text(
           "${(numberOfCorrectQuestions * 10)}",
           style: TextStyle(
-            color: kTextColor,
+            color: Theme.of(context).colorScheme.onSurface,
             fontSize: 22,
             fontWeight: FontWeight.bold,
           ),
@@ -130,18 +130,15 @@ class QuizResultsCard extends StatelessWidget {
     NavigationHelper.pushReplacement(destination: HomeView(), context: context);
   }
 
-  BoxDecoration _buildMainContainerDecoration() {
+  BoxDecoration _buildMainContainerDecoration({required bool isDark}) {
     return BoxDecoration(
-      color: const Color.fromARGB(255, 236, 247, 255),
+      color:
+          isDark
+              ? const Color.fromARGB(255, 40, 41, 41)
+              : const Color.fromARGB(255, 233, 246, 255),
       borderRadius: BorderRadius.circular(16),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black12,
-          blurRadius: 8,
-          spreadRadius: 4,
-          offset: Offset(0, 4),
-        ),
-      ],
+      shape: BoxShape.rectangle,
+      border: Border.all(color: const Color(0xFF385063), width: 4),
     );
   }
 }
