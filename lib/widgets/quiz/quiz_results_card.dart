@@ -5,6 +5,7 @@ import 'package:trivi_arena/cubits/answer_cubit/answer_cubit.dart';
 import 'package:trivi_arena/cubits/question_cubit/question_cubit.dart';
 import 'package:trivi_arena/cubits/score_cubit/score_cubit.dart';
 import 'package:trivi_arena/helper/navigation_helper.dart';
+import 'package:trivi_arena/views/home_view.dart';
 import 'package:trivi_arena/widgets/common/custom_button.dart';
 import 'package:trivi_arena/widgets/quiz/quiz_stats_row.dart';
 
@@ -19,29 +20,38 @@ class QuizResultsCard extends StatelessWidget {
     final int numberOfWrongQuestions =
         numberOfQuestions - numberOfCorrectQuestions;
 
-    return Stack(
-      clipBehavior: Clip.none,
-      alignment: Alignment.center,
-      children: [
-        _buildMainCard(
-          context,
-          numberOfQuestions: numberOfQuestions,
-          numberOfCorrectQuestions: numberOfCorrectQuestions,
-          numberOfWrongQuestions: numberOfWrongQuestions,
-        ),
-
-        _buildFinishQuizIcon(),
-      ],
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Stack(
+            clipBehavior: Clip.none,
+            alignment: Alignment.center,
+            children: [
+              _buildMainCard(
+                context,
+                numberOfQuestions: numberOfQuestions,
+                numberOfCorrectQuestions: numberOfCorrectQuestions,
+                numberOfWrongQuestions: numberOfWrongQuestions,
+              ),
+              _buildFinishQuizIcon(),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
   Positioned _buildFinishQuizIcon() {
     return Positioned(
-      top: 120,
-      child: CircleAvatar(
-        backgroundColor: const Color.fromRGBO(236, 247, 255, 0.8),
-        radius: 80,
-        child: Image(image: AssetImage("assets/images/Finish-Quiz-Icon.png")),
+      top: -120,
+      left: 0,
+      right: 0,
+      child: Center(
+        child: Image(
+          image: AssetImage("assets/images/Finish-Quiz-Icon.png"),
+          height: 240,
+        ),
       ),
     );
   }
@@ -54,7 +64,7 @@ class QuizResultsCard extends StatelessWidget {
   }) {
     return Center(
       child: Container(
-        padding: EdgeInsets.only(bottom: 16, top: 64, left: 8, right: 8),
+        padding: EdgeInsets.only(bottom: 16, top: 128, left: 8, right: 8),
         decoration: _buildMainContainerDecoration(),
         child: _buildFinishQuizCardBody(
           context,
@@ -117,7 +127,7 @@ class QuizResultsCard extends StatelessWidget {
     BlocProvider.of<QuestionCubit>(context).reset();
     BlocProvider.of<AnswerCubit>(context).reset();
     BlocProvider.of<ScoreCubit>(context).resetScore();
-    NavigationHelper.pop(context);
+    NavigationHelper.pushReplacement(destination: HomeView(), context: context);
   }
 
   BoxDecoration _buildMainContainerDecoration() {

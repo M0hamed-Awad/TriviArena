@@ -19,6 +19,7 @@ class QuizStatsRow extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
+      spacing: 8,
       children: [
         QuizQuestionsResultsContainer(
           backgroundColor: kDefaultColor,
