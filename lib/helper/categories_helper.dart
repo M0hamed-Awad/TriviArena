@@ -1,15 +1,15 @@
-import 'package:flutter/widgets.dart';
-import 'package:trivi_arena/data/quizzes_list.dart';
-import 'package:trivi_arena/views/quiz_info_view.dart';
+import 'package:trivi_arena/data/categories_list.dart';
+import 'package:trivi_arena/models/category_model.dart';
 
 class CategoriesHelper {
-  static Widget getCategoryPage(int categoryIndex) {
-    return switch (categoryIndex) {
-      0 => QuizInfoView(quizModel: quizzes[0]),
-      1 => QuizInfoView(quizModel: quizzes[1]),
-      2 => QuizInfoView(quizModel: quizzes[2]),
-      3 => QuizInfoView(quizModel: quizzes[3]),
-      _ => QuizInfoView(quizModel: quizzes[4]),
+  static CategoryModel getCategoryModelById({required int categoryId}) {
+    return switch (categoryId) {
+      1 => categories[0],
+      2 => categories[1],
+      3 => categories[2],
+      4 => categories[3],
+      5 => categories[4],
+      _ => categories[5],
     };
   }
 }
