@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:trivi_arena/constants.dart';
 import 'package:trivi_arena/cubits/quiz_cubit/quiz_cubit.dart';
+import 'package:trivi_arena/styles/themes.dart';
 import 'package:trivi_arena/views/home_view.dart';
 
 void main() {
@@ -18,7 +18,13 @@ class TriviArenaApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'TriviArena',
-        home: Scaffold(backgroundColor: kBackgroundColor, body: HomeView()),
+        theme: AppThemes.lightTheme,
+        darkTheme: AppThemes.darkTheme,
+        themeMode: ThemeMode.system,
+        home: Scaffold(
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          body: HomeView(),
+        ),
       ),
     );
   }
