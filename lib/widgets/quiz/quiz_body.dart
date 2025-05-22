@@ -17,28 +17,31 @@ class QuizBody extends StatefulWidget {
 }
 
 class _QuizBodyState extends State<QuizBody> {
+  int currentQuestionIndex = 0;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<QuestionCubit, QuestionState>(
       builder: (context, state) {
-        int currentQuestionIndex = 0;
-        if (state is QuestionLoaded) {
-          currentQuestionIndex = state.questionIndex;
-        }
         // Final Question and go to Result Screen
-        if (_isQuizFinished(
+        if (_isFinalQuestion(
           quizNumberOfQuestions: widget.questions.length,
           currentQuestionIndex: currentQuestionIndex,
         )) {
+          currentQuestionIndex = 0;
           return _buildQuizResultsBody(quizModel: widget.quizModel);
         }
         // More Questions
-        else {
+        if (state is QuestionLoaded) {
+          currentQuestionIndex = state.questionIndex;
           return _buildQuestionInfoBody(
             questions: widget.questions,
-            currentQuestionIndex: currentQuestionIndex,
+            currentQuestionIndex: state.questionIndex,
             quizModel: widget.quizModel,
           );
+        }
+        // Quiz is Completed
+        else {
+          return SizedBox.shrink();
         }
       },
     );
@@ -60,12 +63,12 @@ class _QuizBodyState extends State<QuizBody> {
     );
   }
 
-  bool _isQuizFinished({
+  bool _isFinalQuestion({
     required int quizNumberOfQuestions,
     required int currentQuestionIndex,
   }) {
     int quizMaxIndex = quizNumberOfQuestions - 1;
-    if (currentQuestionIndex > quizMaxIndex) {
+    if (currentQuestionIndex >= quizMaxIndex) {
       return true;
     } else {
       return false;
