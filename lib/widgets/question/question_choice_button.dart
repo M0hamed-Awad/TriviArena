@@ -14,12 +14,15 @@ class QuestionChoiceButton extends StatefulWidget {
 }
 
 class _QuestionChoiceButtonState extends State<QuestionChoiceButton> {
-  Color buttonBackgroundColor = Colors.white;
+  Color buttonBackgroundColor = kNaturalLightColor;
   Color buttonTextColor = kPrimaryColor;
   Color buttonBorderColor = kPrimaryColor;
   bool isClickable = true;
+
   @override
   Widget build(BuildContext context) {
+    buttonBackgroundColor = Theme.of(context).scaffoldBackgroundColor;
+
     return BlocListener<AnswerCubit, AnswerState>(
       listener: (context, state) {
         if (state is AnswerSelected) {
@@ -37,7 +40,7 @@ class _QuestionChoiceButtonState extends State<QuestionChoiceButton> {
           );
         } else {
           buttonBorderColor = kPrimaryColor;
-          buttonBackgroundColor = Colors.white;
+          buttonBackgroundColor = Theme.of(context).scaffoldBackgroundColor;
           buttonTextColor = kPrimaryColor;
           isClickable = true;
         }
@@ -61,7 +64,8 @@ class _QuestionChoiceButtonState extends State<QuestionChoiceButton> {
       buttonBackgroundColor = kPrimaryColor;
       buttonTextColor = Colors.white;
     } else {
-      buttonBackgroundColor = Colors.white;
+      buttonBackgroundColor = Theme.of(context).scaffoldBackgroundColor;
+
       buttonTextColor = kPrimaryColor;
     }
   }
@@ -95,7 +99,7 @@ class _QuestionChoiceButtonState extends State<QuestionChoiceButton> {
     // Color Rest of the Answers with Default Colors
     else {
       buttonBorderColor = kPrimaryColor;
-      buttonBackgroundColor = Colors.white;
+      buttonBackgroundColor = Theme.of(context).scaffoldBackgroundColor;
       buttonTextColor = kPrimaryColor;
     }
   }

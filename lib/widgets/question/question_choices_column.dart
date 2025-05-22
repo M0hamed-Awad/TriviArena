@@ -17,15 +17,19 @@ class _QuestionChoicesColumnState extends State<QuestionChoicesColumn> {
   }
 
   Widget _buildQuestionChoicesBody({required List<String> choices}) {
-    return SingleChildScrollView(
-      child: Column(
-        spacing: 8,
-        children: [
-          QuestionChoiceButton(choice: choices[0]),
-          QuestionChoiceButton(choice: choices[1]),
-          QuestionChoiceButton(choice: choices[2]),
-          QuestionChoiceButton(choice: choices[3]),
-        ],
+    return Expanded(
+      child: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            spacing: 8,
+            children: [
+              QuestionChoiceButton(choice: choices[0]),
+              QuestionChoiceButton(choice: choices[1]),
+              QuestionChoiceButton(choice: choices[2]),
+              QuestionChoiceButton(choice: choices[3]),
+            ],
+          ),
+        ),
       ),
     );
   }
